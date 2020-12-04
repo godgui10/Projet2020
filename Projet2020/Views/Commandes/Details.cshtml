@@ -1,0 +1,49 @@
+﻿@model Projet2020.Models.Commandes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id_cli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id_cli)
+        </dd>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>
+                        Your order :
+                    </th>
+                </tr>
+                <tr>
+                    <th>Name product</th>
+                    <th>Price</th>
+                </tr>
+                @foreach (var item in Model.Prod)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name_produits)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)€
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_commande }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

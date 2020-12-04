@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuiShop</title><!--Pour la barre en haut à gauche(titre de page)-->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Guishop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Clients", "Index", "Clients")</li>
+                    <li>@Html.ActionLink("Products", "Index", "Produits")</li>
+                    <li>@Html.ActionLink("Orders", "index", "Commandes")</li>
+                    <li>@Html.ActionLink("Comments", "index", "Comments")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p class="txtLightGrey ecartTop3pc">
+                <br /><br /><b>Nos Fédération affiliées au magasin</b><br />
+                <a href="https://www.ffbjudo.be/"><img src="~/Images/ffbj.jpg" alt="ffbj" width="130px" /></a>
+                <a href="https://www.vjf.be/"><img src="~/Images/vjf.png" alt="Vjf" width="130px" /></a>
+                <a href="https://www.ffjudo.com/"><img src="~/Images/ffjudo.jpg" alt="ffj" width="130px" /></a>
+            </p>
+            <p>
+                <b>Nos partenaires</b><br />
+                <a href="https://www.adidas.be/nl"><img src="~/Images/addidas.jpg" alt="Addidas" width="130px"></a>
+                <a href="https://emea.mizuno.com/eu/nl-be/home/"><img src="~/Images/mizuno.jpg" alt="Mizuno" width="130px" /></a>
+                <a href="https://www.ijf.org/"><img src="~/Images/ijf.png" alt="IJF" width="130px" /></a>
+                <a href="https://www.nike.com/be/fr/"><img src="~/Images/nike.png" alt="Nike" width="130px" /></a>
+                <a href="https://www.asics.com/be/fr-be/"><img src="~/Images/assics.jpg" alt="Asics" width="130px" /></a>
+                <a href="https://www.brooksrunning.com/fr_fr"><img src="~/Images/brooks.png" alt="Brooks" width="130px" /></a>
+            </p>
+            <p>&copy; @DateTime.Now.Year - Le site à Guigui</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

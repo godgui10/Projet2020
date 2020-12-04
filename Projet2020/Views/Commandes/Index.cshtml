@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Projet2020.Models.Commandes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id_cli)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id_cli)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id_commande }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id_commande }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id_commande })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,42 @@
+﻿@model Projet2020.Models.Produits
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Products</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name_produits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name_produits)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stk)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stk)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_prod }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
