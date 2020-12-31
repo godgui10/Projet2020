@@ -5,10 +5,13 @@
 }
 
 <h2>Comments area</h2>
+@if (Session["id"] != null)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -20,20 +23,25 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id_prod)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id_com }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id_com }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id_com })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id_prod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            @if (Session["id"] != null && int.Parse(Session["id"].ToString()) == 1)
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id_com }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id_com }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id_com })
+                </td>
+            }
+
+        </tr>
+    }
 
 </table>

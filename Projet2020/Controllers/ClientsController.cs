@@ -173,5 +173,44 @@ namespace Projet2020.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //get login
+        public ActionResult login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(String Email, String Name)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = db.Client.Where(s => s.Email.Equals(Email) && s.Name.Equals(Name));
+                System.Diagnostics.Debug.WriteLine(Name);
+                if (data.Count() > 0)
+                {
+                    System.Diagnostics.Debug.WriteLine("Connection On");
+                    Session["id"] = data.FirstOrDefault().Id_cli;
+                    Session["Firstanme"] = data.FirstOrDefault().Firstname;
+                    Session["Name"] = data.FirstOrDefault().Name;
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("Connection Off");
+                    ViewBag.error = "Login failed";
+                    return RedirectToAction("Login", "Clients");
+                }
+            }
+            return View();
+        }
+
+        //logout
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

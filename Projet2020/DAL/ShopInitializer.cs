@@ -41,6 +41,12 @@ namespace Projet2020.DAL
             co.ForEach(comms => context.Com.Add(comms));
             context.SaveChanges();
 
+            var pan = new List<Panier>
+            {
+                new Panier{id_pan=1, Id_commande=1, Id_prod=2},
+            };
+            pan.ForEach(comms => context.Paniers.Add(comms));
+            context.SaveChanges();
         }
     }
 }

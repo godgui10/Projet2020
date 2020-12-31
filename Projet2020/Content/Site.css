@@ -22,3 +22,12 @@ select,
 textarea {
     max-width: 280px;
 }
+/*CSS pour ma banière*/
+.banniere
+{
+    height: 20%; /* La bannière fera 20% de la hauteur de la page... */
+    width: 100%; /* et 100% de la largeur. */
+    background-image : url( /*url de votre image de fond*/ );
+    text-align : center;
+}
+

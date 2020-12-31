@@ -7,10 +7,13 @@
 }
 
 <h2>List of our products</h2>
+@if (Session["id"] != null && int.Parse(Session["id"].ToString()) == 1)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 @using (Html.BeginForm("Index", "Produits", FormMethod.Get))
 {
     <p>
@@ -44,11 +47,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Stk) de stock
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id_prod }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id_prod }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id_prod })
-            </td>
+            @if (Session["id"] != null && int.Parse(Session["id"].ToString()) == 1)
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id_prod }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id_prod }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id_prod })
+                </td>
+            }
+
         </tr>
     }
 

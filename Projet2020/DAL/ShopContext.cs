@@ -15,6 +15,7 @@ namespace Projet2020.DAL
         public DbSet<Produits> Product { get; set; }
         public DbSet<Commandes> orders { get; set; }
         public DbSet<Comments> Com { get; set; }
+        public DbSet<Panier> Paniers { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
