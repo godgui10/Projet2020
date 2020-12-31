@@ -92,7 +92,7 @@ namespace Projet2020.Controllers
                 {
                     db.Client.Add(clients);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
                 }
             }
             catch(DataException /* dex */)
