@@ -12,5 +12,6 @@ namespace Projet2020.Models
         public int id_pan { get; set; }
         public virtual int Id_prod { get; set; }
         public virtual int Id_commande { get; set; }
+        public Produits p { get; set; }
     }
 }

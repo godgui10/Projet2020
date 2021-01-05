@@ -18,23 +18,83 @@ namespace Projet2020.Controllers
         // GET: Commandes
         public ActionResult Index()
         {
-            
-            return View(db.orders.ToList());
+            var res = from Commandes in db.orders
+                      select Commandes;
+            List<Commandes> comm = new List<Commandes>();
+            foreach (Commandes co in res)
+            {
+                if (co.Id_cli == int.Parse(Session["id"].ToString()) && co.check == 1)
+                {
+                    comm.Add(co);
+                }
+            }
+            return View(comm.ToList());
         }
 
         // GET: Commandes/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            var result = from Orders in db.orders
+                         select Orders;
+
+            Commandes Order = null;
+            List<Panier> CO = new List<Panier>();
+            List<Produits> prod = new List<Produits>();
+
+            foreach (Commandes o in result)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (o.Id_cli == int.Parse(Session["id"].ToString()) && o.check == 1)
+                {
+                    Order = o;
+                    //System.Diagnostics.Debug.WriteLine(Order.Id_commande);
+                }
             }
-            Commandes commandes = db.orders.Find(id);
-            if (commandes == null)
+            var result2 = from Panier in db.Paniers
+                          select Panier;
+            if (Order != null)
             {
-                return HttpNotFound();
+                foreach (Panier co in result2)
+                {
+
+                    if (co.Id_commande == Order.Id_commande)
+                    {
+                        CO.Add(co);
+                        //System.Diagnostics.Debug.WriteLine(co.Id_commande);
+                    }
+                }
+
+
+                var result3 = from Produits in db.Product
+                              select Produits;
+                for (int i = 0; i < CO.Count; i++)
+                {
+                    foreach (Produits p in result3)
+                    {
+                        prod.Add(p);
+                    }
+                }
+
+                for (int j = 0; j < CO.Count; j++)
+                {
+                    for (int i = 0; i < prod.Count; i++)
+                    {
+                        if (CO[j].Id_prod == prod[i].Id_prod)
+                        {
+                            CO[j].p = prod[i];
+                            //System.Diagnostics.Debug.WriteLine(CO[j].p.Name_produits);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < CO.Count; i++)
+                {
+                    if (CO[i].Id_commande == Order.Id_commande)
+                    {
+                        Order.Prod.Add(CO[i].p);
+                    }
+                }
             }
-            return View(commandes);
+            return View(Order);
         }
 
         // GET: Commandes/Create
@@ -89,7 +149,7 @@ namespace Projet2020.Controllers
             {
                 db.Entry(commandes).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("index");
             }
             ViewBag.Id_cli = new SelectList(db.Client, "Id_cli", "Firstname", commandes.Id_cli);
             return View(commandes);
@@ -128,6 +188,80 @@ namespace Projet2020.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        //Panier
+        public ActionResult Panier()
+        {
+            var result = from Orders in db.orders
+                         select Orders;
+
+            Commandes Order = null;
+            List<Panier> CO = new List<Panier>();
+            List<Produits> prod = new List<Produits>();
+
+            foreach (Commandes o in result)
+            {
+                if (o.Id_cli == int.Parse(Session["id"].ToString()) && o.check == 0)
+                {
+                    Order = o;
+                    System.Diagnostics.Debug.WriteLine(Order.Id_commande);
+                }
+            }
+            var result2 = from Panier in db.Paniers
+                          select Panier;
+            if (Order != null)
+            {
+                foreach (Panier co in result2)
+                {
+
+                    if (co.Id_commande == Order.Id_commande)
+                    {
+                        CO.Add(co);
+                        System.Diagnostics.Debug.WriteLine(co.Id_commande);
+                    }
+                }
+
+
+                var result3 = from Produits in db.Product
+                              select Produits;
+                for (int i = 0; i < CO.Count; i++)
+                {
+                    foreach (Produits p in result3)
+                    {
+                        prod.Add(p);
+                    }
+                }
+
+                for (int j = 0; j < CO.Count; j++)
+                {
+                    for (int i = 0; i < prod.Count; i++)
+                    {
+                        if (CO[j].Id_prod == prod[i].Id_prod)
+                        {
+                            CO[j].p = prod[i];
+                            System.Diagnostics.Debug.WriteLine(CO[j].p.Name_produits);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < CO.Count; i++)
+                {
+                    if (CO[i].Id_commande == Order.Id_commande)
+                    {
+                        Order.Prod.Add(CO[i].p);
+                    }
+                }
+            }
+            return View(Order);
+        }
+        //validate
+        public ActionResult validate(int id)
+        {
+            Commandes comm = db.orders.Find(id);
+            comm.check = 1;
+            db.Entry(comm).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Commandes");
         }
     }
 }

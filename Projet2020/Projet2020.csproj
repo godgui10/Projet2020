@@ -223,6 +223,7 @@
     <Content Include="Views\Paniers\Details.cshtml" />
     <Content Include="Views\Paniers\Edit.cshtml" />
     <Content Include="Views\Paniers\Index.cshtml" />
+    <Content Include="Views\Commandes\Panier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

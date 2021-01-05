@@ -32,7 +32,7 @@ namespace Projet2020.Controllers
 
             ViewBag.CurrentFilter = searchString;
             var produits = from s in db.Product
-                         select s;
+                           select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 produits = produits.Where(s => s.Name_produits.Contains(searchString));
@@ -159,6 +159,59 @@ namespace Projet2020.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        //commandes de prod
+        public ActionResult Add(int id)
+        {
+
+            var test = from Commandes in db.orders
+                       select Commandes;
+            List<Commandes> otest = new List<Commandes>();
+            foreach (Commandes ot in test)
+            {
+                if (ot.Id_cli == int.Parse(Session["id"].ToString()) && ot.check == 0)
+                {
+                    otest.Add(ot);
+                }
+            }
+
+                if (otest.Count() == 0)
+            {
+                Session["coco"] = 1;
+                Commandes c = new Commandes { Id_cli = int.Parse(Session["id"].ToString()), check = 0 };
+                db.orders.Add(c);
+                db.SaveChanges();
+                var res = from Commandes in db.orders
+                          select Commandes;
+                Commandes co = null;
+                foreach (Commandes cc in res)
+                {
+                    if (cc.Id_cli == int.Parse(Session["id"].ToString()) && cc.check == 0)
+                    {
+                        co = cc;
+                    }
+                }
+                Panier p = new Panier { Id_commande = co.Id_commande, Id_prod = id };
+                db.Paniers.Add(p);
+                db.SaveChanges();
+            }
+            else
+            {
+                var res = from Commandes in db.orders
+                          select Commandes;
+                Commandes co = null;
+                foreach (Commandes cc in res)
+                {
+                    if (cc.Id_cli == int.Parse(Session["id"].ToString()) && cc.check == 0)
+                    {
+                        co = cc;
+                    }
+                }
+                Panier p = new Panier { Id_commande = co.Id_commande, Id_prod = id };
+                db.Paniers.Add(p);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
     }
 }

@@ -130,7 +130,7 @@ namespace Projet2020.Controllers
             {
                 db.Entry(clients).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             return View(clients);
         }
@@ -187,10 +187,10 @@ namespace Projet2020.Controllers
             if (ModelState.IsValid)
             {
                 var data = db.Client.Where(s => s.Email.Equals(Email) && s.Name.Equals(Name));
-                System.Diagnostics.Debug.WriteLine(Name);
+                //System.Diagnostics.Debug.WriteLine(Name);
                 if (data.Count() > 0)
                 {
-                    System.Diagnostics.Debug.WriteLine("Connection On");
+                    //System.Diagnostics.Debug.WriteLine("Connection On");
                     Session["id"] = data.FirstOrDefault().Id_cli;
                     Session["Firstanme"] = data.FirstOrDefault().Firstname;
                     Session["Name"] = data.FirstOrDefault().Name;
@@ -198,7 +198,7 @@ namespace Projet2020.Controllers
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Connection Off");
+                    //System.Diagnostics.Debug.WriteLine("Connection Off");
                     ViewBag.error = "Login failed";
                     return RedirectToAction("Login", "Clients");
                 }

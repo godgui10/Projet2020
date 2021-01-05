@@ -29,7 +29,7 @@ namespace Projet2020.DAL
 
             var Comm = new List<Commandes>
             {
-               new Commandes{ Id_cli=2, Id_commande=1, Prod=Produit },
+               new Commandes{ Id_cli=2, Id_commande=1, Prod=Produit,check=1 },
             };
             Comm.ForEach(o => context.orders.Add(o));
             context.SaveChanges();

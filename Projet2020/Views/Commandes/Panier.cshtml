@@ -1,0 +1,53 @@
+﻿@model Projet2020.Models.Commandes
+@{
+    ViewBag.Title = "Panier";
+}
+
+<h2>Panier</h2>
+@if (Model != null)
+{
+    <div>
+        <h4>Panier</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Id_cli)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Id_cli)
+            </dd>
+            <dd>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Your order :
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Name product</th>
+                        <th>Price</th>
+                    </tr>
+                    @foreach (var item in Model.Prod)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name_produits)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)€
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <button class="btn btn-success">@Html.ActionLink("Validate", "validate", new { id = Model.Id_commande })</button>
+            </dd>
+        </dl>
+    </div>
+
+}
+else
+{
+   <h1>A que coucou</h1>
+}
+

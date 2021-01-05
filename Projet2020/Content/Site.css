@@ -30,4 +30,7 @@ textarea {
     background-image : url( /*url de votre image de fond*/ );
     text-align : center;
 }
+.white{
+    color: white;
+}
 

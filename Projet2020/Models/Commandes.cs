@@ -11,6 +11,7 @@ namespace Projet2020.Models
         
         [Key]
         public int Id_commande { get; set; }
+        public int check { get; set; }
         public virtual int Id_cli { get; set; }
         public virtual ICollection<Produits> Prod { get; set; }
 

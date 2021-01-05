@@ -55,6 +55,13 @@
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id_prod })
                 </td>
             }
+            @if(Session["id"] != null)
+            {
+                 <td>
+                    <button class="btn btn-success">@Html.ActionLink("Buy","Add", new { id = item.Id_prod })</button>
+                 </td>
+            }
+            
 
         </tr>
     }
