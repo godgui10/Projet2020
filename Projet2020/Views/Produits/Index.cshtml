@@ -37,33 +37,37 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name_produits)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)€
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stk) de stock
-            </td>
-            @if (Session["id"] != null && int.Parse(Session["id"].ToString()) == 1)
-            {
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id_prod }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id_prod }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id_prod })
-                </td>
-            }
-            @if(Session["id"] != null)
-            {
-                 <td>
-                    <button class="btn btn-success">@Html.ActionLink("Buy","Add", new { id = item.Id_prod })</button>
-                 </td>
-            }
-            
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name_produits)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)€
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Stk) de stock
+    </td>
+    @if (Session["id"] != null && int.Parse(Session["id"].ToString()) == 1)
+    {
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id_prod }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id_prod }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id_prod })
+        </td>
+    }
+    @if (Session["id"] != null)
+    {
+        <td>
+            <button class="btn btn-success">@Html.ActionLink("Buy", "Add", new { id = item.Id_prod })</button>
+        </td>
 
-        </tr>
+    }
+    <td>
+        <button class="btn btn-success">@Html.ActionLink("Comments", "commentaire", new { id = item.Id_prod })</button>
+    </td>
+
+
+</tr>
     }
 
 </table>

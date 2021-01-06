@@ -213,5 +213,9 @@ namespace Projet2020.Controllers
             }
             return RedirectToAction("Index");
         }
+        public ActionResult commentaire(int id)
+        {
+            return RedirectToAction("Index", "Comments", new { id = id });
+        }
     }
 }

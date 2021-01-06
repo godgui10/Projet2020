@@ -39,7 +39,6 @@ namespace Projet2020.Controllers
 
             Commandes Order = null;
             List<Panier> CO = new List<Panier>();
-            List<Produits> prod = new List<Produits>();
 
             foreach (Commandes o in result)
             {
@@ -70,17 +69,9 @@ namespace Projet2020.Controllers
                 {
                     foreach (Produits p in result3)
                     {
-                        prod.Add(p);
-                    }
-                }
-
-                for (int j = 0; j < CO.Count; j++)
-                {
-                    for (int i = 0; i < prod.Count; i++)
-                    {
-                        if (CO[j].Id_prod == prod[i].Id_prod)
+                        if (CO[i].Id_prod == p.Id_prod)
                         {
-                            CO[j].p = prod[i];
+                            CO[i].p = p;
                             //System.Diagnostics.Debug.WriteLine(CO[j].p.Name_produits);
                         }
                     }
@@ -175,8 +166,23 @@ namespace Projet2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Commandes commandes = db.orders.Find(id);
-            db.orders.Remove(commandes);
+            Commandes order = db.orders.Find(id);
+            var result2 = from Panier in db.Paniers
+                          select Panier;
+            List<Panier> CO = new List<Panier>();
+            foreach (Panier co in result2)
+            {
+                if (co.Id_commande == order.Id_commande)
+                {
+                    CO.Add(co);
+                    //System.Diagnostics.Debug.WriteLine(co.Id_commande);
+                }
+            }
+            for (int i = 0; i < CO.Count(); i++)
+            {
+                db.Paniers.Remove(CO[i]);
+            }
+            db.orders.Remove(order);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -204,7 +210,7 @@ namespace Projet2020.Controllers
                 if (o.Id_cli == int.Parse(Session["id"].ToString()) && o.check == 0)
                 {
                     Order = o;
-                    System.Diagnostics.Debug.WriteLine(Order.Id_commande);
+                    //System.Diagnostics.Debug.WriteLine(Order.Id_commande);
                 }
             }
             var result2 = from Panier in db.Paniers
@@ -217,7 +223,7 @@ namespace Projet2020.Controllers
                     if (co.Id_commande == Order.Id_commande)
                     {
                         CO.Add(co);
-                        System.Diagnostics.Debug.WriteLine(co.Id_commande);
+                        //System.Diagnostics.Debug.WriteLine(co.Id_commande);
                     }
                 }
 
@@ -239,7 +245,7 @@ namespace Projet2020.Controllers
                         if (CO[j].Id_prod == prod[i].Id_prod)
                         {
                             CO[j].p = prod[i];
-                            System.Diagnostics.Debug.WriteLine(CO[j].p.Name_produits);
+                            //System.Diagnostics.Debug.WriteLine(CO[j].p.Name_produits);
                         }
                     }
                 }
@@ -258,7 +264,33 @@ namespace Projet2020.Controllers
         public ActionResult validate(int id)
         {
             Commandes comm = db.orders.Find(id);
+            List<Panier> CO = new List<Panier>();
             comm.check = 1;
+            var result2 = from Panier in db.Paniers
+                          select Panier;
+            foreach (Panier co in result2)
+            {
+
+                if (co.Id_commande == comm.Id_commande)
+                {
+                    CO.Add(co);
+                    //System.Diagnostics.Debug.WriteLine(co.Id_commande);
+                }
+            }
+            var result3 = from Produits in db.Product
+                          select Produits;
+            for (int i = 0; i < CO.Count; i++)
+            {
+                foreach (Produits p in result3)
+                {
+                    if (CO[i].Id_prod == p.Id_prod)
+                    {
+                        p.Stk -=1;
+                        db.Entry(p).State = EntityState.Modified;
+                        //System.Diagnostics.Debug.WriteLine(CO[j].p.Name_produits);
+                    }
+                }
+            }
             db.Entry(comm).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index", "Commandes");

@@ -16,9 +16,19 @@ namespace Projet2020.Controllers
         private ShopContext db = new ShopContext();
 
         // GET: Comments
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View(db.Com.ToList());
+            var res = from Comments in db.Com
+                      select Comments;
+            List<Comments> coco = new List<Comments>();
+            foreach(Comments c in res)
+            {
+                if(c.Id_prod == id)
+                {
+                    coco.Add(c);
+                }
+            }
+            return View(coco.ToList());
         }
 
         // GET: Comments/Details/5
@@ -54,7 +64,7 @@ namespace Projet2020.Controllers
             {
                 db.Com.Add(comments);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
             ViewBag.Id_prod = new SelectList(db.Product, "Id_prod", "Name_produits", comments.Id_prod);

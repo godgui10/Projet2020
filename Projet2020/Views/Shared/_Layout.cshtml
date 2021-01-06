@@ -31,7 +31,6 @@
             <ul class="navbar-nav mr-auto">
                 <li>@Html.ActionLink("Guishop", "Index", "Home", new { area = "" }, new { @class = "nav-link font-weight-bold" })</li>
                 <li>@Html.ActionLink("Products", "index", "Produits", new { area = "" }, new { @class = "nav-link font-weight-bold ml-3" })</li>
-                <li>@Html.ActionLink("Comments", "index", "Comments", new { area = "" }, new { @class = "nav-link font-weight-bold ml-3" })</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link font-weight-bold ml-3" })</li>
                 <li class="dropdown font-weight-bold ml-3">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -56,7 +55,6 @@ else
                             <ul class="navbar-nav mr-auto">
                                 <li>@Html.ActionLink("Guishop", "Index", "Home", new { area = "" }, new { @class = "nav-link font-weight-bold" })</li>
                                 <li>@Html.ActionLink("Products", "index", "Produits", new { area = "" }, new { @class = "nav-link font-weight-bold ml-3" })</li>
-                                <li>@Html.ActionLink("Comments", "index", "Comments", new { area = "" }, new { @class = "nav-link font-weight-bold ml-3" })</li>
                                 <li>@Html.ActionLink("Panier", "Panier", "Commandes", new { area = "" }, new { @class = "nav-link font-weight-bold ml-3" })</li>
                                 @if (int.Parse(Session["id"].ToString()) != 1)
                                 {
