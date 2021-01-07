@@ -127,7 +127,7 @@ namespace Projet2020.Controllers
             Comments comments = db.Com.Find(id);
             db.Com.Remove(comments);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Produits");
         }
 
         protected override void Dispose(bool disposing)
